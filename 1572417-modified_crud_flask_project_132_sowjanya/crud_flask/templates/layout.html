@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+    <link rel="style_new.css" type="text/css" href="{{ url_for ('static',filename='style_new.css')}}">
+    <style>
+        /* CONTACTS */
+        
+        .contact-box {
+            background-color: rgb(199, 155, 199);
+            border: 1px solid #e7eaec;
+            padding: 200px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            margin-left: 200px;
+            position: relative;
+        }
+        
+        .contact-box>a {
+            color: inherit;
+        }
+        
+        .contact-box.center-version {
+            border: 1px solid rgb(199, 155, 199);
+            padding: 20px;
+            width: 390px;
+        }
+        
+        .contact-box.center-version>a {
+            text-align: right;
+        }
+        
+        .contact-box.center-version>a img {
+            width: 80px;
+            height: 80px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 30px;
+        }
+        
+        .contact-box.center-version address {
+            margin-bottom: 0;
+        }
+        
+        .contact-box .contact-box-footer {
+            text-align: center;
+            background-color: rgb(199, 155, 199);
+            border-top: 1px solid #e7eaec;
+            padding: 15px 20px;
+        }
+        
+        a {
+            text-decoration: none !important;
+        }
+        
+        .modal h4 {
+            font-style: italic;
+            font-size: small;
+        }
+        
+        .modal h1 {
+            font-style: italic;
+            font-size: large;
+        }
+        
+        .main {
+            background-color: rgb(74, 25, 83);
+        }
+    </style>
+</head>
+
+<body>
+    <section class="home-section">
+
+
+        <image src="{{ url_for ('static',filename='images/phone_background.jpg')}}" class="home-img" alt="" style="position: absolute;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 100%;
+        position:fixed;
+        object-fit: cover;
+        opacity: 0.2;">
+    </section>
+
+    <div class="main">
+        <div class="profile" style="position:fixed;">
+
+
+
+
+            <nav class="navbar navbar-expand-sm bg-rgb(74, 25, 83) navbar-rgb(74, 25, 83)">
+                <!-- Brand/logo -->
+                <a class="navbar-brand" href="#">
+                    <image src="{{ url_for ('static',filename='images/sowji2.jpg')}}" class="img-fluid rounded-circle" style="margin: 15px auto;
+                display: block;
+                margin-left:200px;
+                width: 120px;
+                border: 8px solid #2c2f3f;">
+                </a>
+                <!-- Links -->
+                <ul class="navbar-nav">
+                    <li>
+                        <h1 class="header" style="
+                        display: block;
+                        color:aliceblue;
+                        margin-top:0px;
+                        
+                        width: 120px;
+                        
+                        ">Contacts
+                        </h1>
+                    </li>
+                    <li>
+
+
+                        <div style=" background-color: transparent">
+
+                            <button data-toggle="modal" data-target="#mymodal" style="margin-left:50px;background-color:transparent;
+                            ">
+                                <image src="{{ url_for ('static',filename='images/add.jpg')}}" 
+                                class="" style="
+                                
+                            background-color:blueviolet;
+                            
+                            width: 50px;
+                           
+                            ">
+                                
+                                </button>
+
+
+                        </div>
+
+
+
+                    </li>
+                    <li class="nav-item">
+
+                        <div class="input-group" style="background-color:transparent"></div>
+                        <form action="{{url_for('search')}}" method="POST">
+                            <div class="input-group" style="margin:50px 300px 50px 0px;border-radius: 15px;">
+
+                                <input type="search" id="form1" class="form-control" name="name1" style="background-color: rgb(199, 155, 199);border-radius: 15px;" />
+                                <label class="form-label" for="form1">
+        
+                     </label>
+
+
+                                <button>
+                                <i class="fa fa-search"></i>
+                            
+                                </button>
+                            </div>
+                        </form>
+                    </li>
+        </div>
+
+
+
+        </ul>
+        </nav>
+
+
+        {% block body_content %} {% endblock %}
+
+
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </div>
+    </div>
+</body>
+
+</html>

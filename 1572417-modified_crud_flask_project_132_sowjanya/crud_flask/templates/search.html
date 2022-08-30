@@ -1,0 +1,390 @@
+ {%extends 'layout.html'%} {% block title %} search {% endblock %} {% block body_content %}
+
+<style>
+    .profile {
+        height: 100%;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" style="margin-top:150px;">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-12" style="height:100%;width:100%;">
+
+
+                <table class="table table-hover table-dark">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+
+
+                    {% if input1 is not none %}
+                    <tr>
+                        <td>{{input1.id}}</td>
+                        <td>{{input1.name}}</td>
+                        <td>{{input1.email}}</td>
+                        <td>{{input1.phone}}</td>
+                        <td><a href="/update/{{input1.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{input1.id}}">
+                                                    edit
+                                                </a>
+                            <a href="/delete/{{input1.id}}" class="btn btn-danger btn-xs" onclick="confirm('Are you sure want to delete?')">
+                                                    delete
+                                                </a>
+                        </td>
+
+                    </tr>
+                    <div id="modaledit{{input1.id}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Update</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{url_for('update')}}" method="POST">
+                                        <div class="form-group">
+                                            <label>name:</label>
+                                            <input type="hidden" name="id" value="{{input1.id}}">
+                                            <input type="text" class="form-control" name="name" value="{{input1.name}}">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label>email:</label>
+                                            <input type="text" class="form-control" name="email" value="{{input1.name}}">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label>phone:</label>
+                                            <input type="number" class="form-control" name="phone" value="{{input1.phone}}">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Update</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </table>
+
+                {% endif %}
+
+            </div>
+            <div id="mymodal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('add')}}" method="POST">
+                                <div class="form-group">
+                                    <label>name:</label>
+                                    <input type="text" class="form-control" name="name" required="1">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>email:</label>
+                                    <input type="text" class="form-control" name="email" required="1">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>phone:</label>
+                                    <input type="number" class="form-control" name="phone" required="1">
+
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Add</button>
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if input1 is not none %}
+<div class="row" style="margin-top:300px;">
+
+
+    <div class="card-deck mt-6">
+        <div class="col-md-3">
+
+
+            <div class="contact-box center-version">
+                <a href="#info">
+                    <h4>{{input1.name}}</h4>
+                    <img class="img-circle" src="{{ url_for ('static',filename='images/avatar1.png')}}" alt="">
+                    <a href="/update/{{input1.id}}" class="btn btn-success tooltips" data-placement="top" data-toggle="modal" data-target="#modaledit{{input1.id}}">
+                        <i class="fa fa-pencil"></i>edit
+                    </a>
+                    <a href="/delete/{{input1.id}}" class="btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete" onclick="confirm('once delete it cannot be restored')">
+                        <i class="fa fa-close"></i>delete
+                    </a>
+                    <a href="/details/{{input1.id}}" class="btn btn-success tooltips" data-placement="top" data-toggle="modal" data-target="#modaledit1{{input1.id}}">
+                        <i class="fa fa-info"></i>details
+                    </a>
+
+
+
+
+
+                </a>
+                <div class="contact-box-footer">
+                    <div class="m-t-xs btn-group">
+                        <a href="/calling/{{input1.id}}" class="btn btn-xs btn-white" data-placement="top" data-toggle="modal" data-target="#modaledit2{{input1.id}}">
+                            <i class="fa fa-phone"></i> Call </a>
+                        <a href='mailto:someone@gmail.com' class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> Email</a>
+                        <a href="" class="btn btn-xs btn-white" data-placement="top" data-toggle="modal" data-target="#modaledit3{{input1.id}}">
+                            <i class="fa fa-whatsapp" aria-hidden="true"></i>chat</a>
+                    </div>
+                </div>
+                <div class="contact-box-footer">
+                    <div class="m-t-xs btn-group">
+                        <a class="btn btn-xs btn-white"><i class="fa fa-facebook"></i> facebook </a>
+                        <a class="btn btn-xs btn-white"><i class="fa fa-instagram"></i> instagram</a>
+                        <a class="btn btn-xs btn-white"><i class="fa fa-linkedin"></i> linkedin</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+    <div id="modaledit1{{input1.id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="container">
+                            <h1>Name:</h1>
+                            <h4 class="display"><b>{{input1.name}}</b></h4>
+                            <br>
+                            <h1>Email-Id:</h1>
+                            <h4 class="display">{{input1.email}}</h4>
+                            <br>
+                            <h1>Phone-Number:</h1>
+                            <h4 class="display-4">{{input1.phone}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer1">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modaledit3{{input1.id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" style="background-color:#21211f;">
+                    <div class="jumbotron jumbotron-fluid" style="background-color:#21211f">
+                        <div class="container">
+                            <div class="chat_div">
+                                <section id="chat" class="chat">
+                                    <h4 class="display" style="font-size:20px; color:white;"><b>{{input1.name}}</b></h4>
+                                    <br>
+                                    <h4 class="display" style="font-size:20px; color:white;"><b>{{input1.phone}}</b></h4>
+                                    <br>
+
+                                    <button class="open-button" style="background-color:#f74a2f" onclick="openForm()">Chat</button>
+
+                                    <div class="chat-popup" id="myForm">
+
+                                        <form class="form-container" onSubmit="alert('Thank you for your message.');">
+
+
+
+                                            <textarea placeholder="Hello...! {{input1.name}}" name="msg" required></textarea>
+
+                                            <button type="submit" class="btn">Send</button>
+                                            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                        </form>
+                                    </div>
+                                    <script>
+                                        function openForm() {
+                                            document.getElementById("myForm").style.display = "block";
+                                        }
+
+                                        function closeForm() {
+                                            document.getElementById("myForm").style.display = "none";
+                                        }
+                                    </script>
+
+                                </section>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer1" style="background-color: black;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modaledit2{{input1.id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" style="background-color:#21211f;">
+                    <div class="jumbotron jumbotron-fluid" style="background-color:#21211f">
+                        <div class="container">
+                            <h4 class="display" style="font-size:20px; color:white;"><b>{{input1.name}}</b></h4>
+                            <br>
+
+                            <h4 class="display-4" style="font-size:20px;color:white;"><b>{{input1.phone}}</b></h4>
+                            <image src="{{ url_for ('static',filename='images/calling.jpg')}}">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer1" style="background-color: black;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="modaledit{{input1.id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{url_for('update')}}" method="POST">
+                        <div class="form-group">
+                            <label>name:</label>
+                            <input type="hidden" name="id" value="{{input1.id}}">
+                            <input type="text" class="form-control" name="name" value="{{input1.name}}">
+
+                        </div>
+                        <div class="form-group">
+                            <label>email:</label>
+                            <input type="text" class="form-control" name="email" value="{{input1.mail}}">
+
+                        </div>
+                        <div class="form-group">
+                            <label>phone:</label>
+                            <input type="number" class="form-control" name="phone" value="{{input1.phone}}">
+
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Update</button>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+
+
+
+
+<div id="mymodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{url_for('add')}}" method="POST">
+                    <div class="form-group">
+                        <label>name:</label>
+                        <input type="text" class="form-control" name="name" required="1">
+
+                    </div>
+                    <div class="form-group">
+                        <label>email:</label>
+                        <input type="text" class="form-control" name="email" required="1">
+
+                    </div>
+                    <div class="form-group">
+                        <label>phone:</label>
+                        <input type="number" class="form-control" name="phone" required="1">
+
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Add</button>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,270 @@
+{%extends 'layout.html'%} {% block title %} Home {% endblock %} {% block body_content %}
+
+<div class="container">
+
+
+    <div class="container" style="background-color:transparent">
+
+        <div class="row">
+            <div class="col md-12">
+                <div style=" background-color: transparent">
+
+                    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                    <div class="alert alert-success alert-dismissable" role="alert" style=" background-color: transparent;color:white;width:50%;">
+                        <button type="button" class="close" data-dismiss="alert" aria_label="close">
+                        <span aria-hidden="true">x</span>
+                        </button> {{message}}
+                    </div>
+                    {% endfor %} {% endif %} {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for row in contacts %}
+
+
+    <div class="row" style="margin-top:300px;">
+
+
+        <div class="card-deck mt-6">
+            <div class="col-md-3">
+
+
+                <div class="contact-box center-version">
+                    <a href="#info">
+                        <h4>{{row.name}}</h4>
+                        <img class="img-circle" src="{{ url_for ('static',filename='images/avatar1.png')}}" alt="">
+                        <a href="/update/{{row.id}}" class="btn btn-success tooltips" data-placement="top" data-toggle="modal" data-target="#modaledit{{row.id}}">
+                            <i class="fa fa-pencil"></i>edit
+                        </a>
+                        <a href="/delete/{{row.id}}" class="btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete" onclick="confirm('Are you sure want to delete?')">
+                            <i class="fa fa-close"></i>delete
+                        </a>
+                        <a href="/details/{{row.id}}" class="btn btn-success tooltips" data-placement="top" data-toggle="modal" data-target="#modaledit1{{row.id}}">
+                            <i class="fa fa-info"></i>info
+                        </a>
+
+
+
+
+
+                    </a>
+                    <div class="contact-box-footer">
+                        <div class="m-t-xs btn-group">
+                            <a href="/calling/{{row.id}}" class="btn btn-xs btn-white" data-placement="top" data-toggle="modal" data-target="#modaledit2{{row.id}}">
+                                <i class="fa fa-phone"></i> Call </a>
+                            <a href='mailto:someone@gmail.com' class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> Email</a>
+                            <a href="" class="btn btn-xs btn-white" data-placement="top" data-toggle="modal" data-target="#modaledit3{{row.id}}">
+                                <i class="fa fa-whatsapp" aria-hidden="true"></i>chat</a>
+                        </div>
+                    </div>
+                    <div class="contact-box-footer">
+                        <div class="m-t-xs btn-group">
+                            <a class="btn btn-xs btn-white"><i class="fa fa-facebook"></i> facebook </a>
+                            <a class="btn btn-xs btn-white"><i class="fa fa-instagram"></i> instagram</a>
+                            <a class="btn btn-xs btn-white"><i class="fa fa-linkedin"></i> linkedin</a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+        <div id="modaledit1{{row.id}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="jumbotron jumbotron-fluid">
+                            <div class="container">
+                                <h1>Name:</h1>
+                                <h4 class="display"><b>{{row.name}}</b></h4>
+                                <br>
+                                <h1>Email-Id:</h1>
+                                <h4 class="display">{{row.email}}</h4>
+                                <br>
+                                <h1>Phone-Number:</h1>
+                                <h4 class="display-4">{{row.phone}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer1">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modaledit2{{row.id}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body" style="background-color:#21211f;">
+                        <div class="jumbotron jumbotron-fluid" style="background-color:#21211f">
+                            <div class="container">
+                                <h4 class="display" style="font-size:20px; color:white;"><b>{{row.name}}</b></h4>
+                                <br>
+
+                                <h4 class="display-4" style="font-size:20px;color:white;"><b>{{row.phone}}</b></h4>
+                                <image src="{{ url_for ('static',filename='images/calling.jpg')}}">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer1" style="background-color: black;">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="modaledit3{{row.id}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body" style="background-color:#21211f;">
+                        <div class="jumbotron jumbotron-fluid" style="background-color:#21211f">
+                            <div class="container">
+                                <div class="chat_div">
+                                    <section id="chat" class="chat">
+                                        <h4 class="display" style="font-size:20px; color:white;"><b>{{row.name}}</b></h4>
+                                        <br>
+                                        <h4 class="display" style="font-size:20px; color:white;"><b>{{row.phone}}</b></h4>
+                                        <br>
+
+                                        <button class="open-button" style="background-color:#f74a2f" onclick="openForm()">Chat</button>
+
+                                        <div class="chat-popup" id="myForm">
+
+                                            <form class="form-container" onSubmit="alert('Thank you for your message.');">
+
+
+
+                                                <textarea placeholder="Hello...! {{row.name}}" name="msg" required></textarea>
+
+                                                <button type="submit" class="btn">Send</button>
+                                                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                            </form>
+                                        </div>
+                                        <script>
+                                            function openForm() {
+                                                document.getElementById("myForm").style.display = "block";
+                                            }
+
+                                            function closeForm() {
+                                                document.getElementById("myForm").style.display = "none";
+                                            }
+                                        </script>
+
+                                    </section>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer1" style="background-color: black;">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{url_for('update')}}" method="POST">
+                            <div class="form-group">
+                                <label>name:</label>
+                                <input type="hidden" name="id" value="{{row.id}}">
+                                <input type="text" class="form-control" name="name" value="{{row.name}}">
+
+                            </div>
+                            <div class="form-group">
+                                <label>email:</label>
+                                <input type="text" class="form-control" name="email" value="{{row.mail}}">
+
+                            </div>
+                            <div class="form-group">
+                                <label>phone:</label>
+                                <input type="number" class="form-control" name="phone" value="{{row.phone}}">
+
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Update</button>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endfor %}
+
+
+
+
+    <div id="mymodal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{url_for('add')}}" method="POST">
+                        <div class="form-group">
+                            <label>name:</label>
+                            <input type="text" class="form-control" name="name" required="1">
+
+                        </div>
+                        <div class="form-group">
+                            <label>email:</label>
+                            <input type="text" class="form-control" name="email" required="1">
+
+                        </div>
+                        <div class="form-group">
+                            <label>phone:</label>
+                            <input type="number" class="form-control" name="phone" required="1">
+
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Add</button>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
