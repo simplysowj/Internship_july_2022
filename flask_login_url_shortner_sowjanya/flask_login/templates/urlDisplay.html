@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Generated URL{% endblock %}
+
+{% block content %}
+    <h1>Your Generated URL</h1>
+    
+    <hr/>
+    <h2>https://url-shortening/{{generatedUrl}}</h2>
+
+    <div class="maintable">
+    <table id="dtVerticalScrollExample" cellspacing="0"
+        width="100%" class="table table-striped table-dark">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Original URL</th>
+        <th scope="col">Shortened Code</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for url in urls %}
+            <tr>
+                <th scope="row">{{url.id_}}</th>
+                <td>{{url.longUrl}}</td>
+                <td>{{url.shortUrl}}</td>
+            </tr>
+        {% endfor %}
+        
+    </tbody>
+    </table>
+    </div>
+{% endblock %}
